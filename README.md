@@ -61,3 +61,39 @@ Get a property by ID
 * Error responses:
     * Status: 404 Not Found
     * Status: 500 Internal Server Error
+
+Update a property by ID
+
+* Method: PUT
+* URL: `/properties/{id}`
+* Description: Updates a property by its ID.
+* Requires Authentication: No
+* Parameters:
+    *id (path parameter): ID of the property.
+* Request:
+    * Body: Updated Property object.
+*Response:
+    * Status: 200 OK
+    * Body: Updated Property object.
+
+* Error responses:
+   * Status: 404 Not Found
+   * Status: 500 Internal Server Error
+
+Delete a property by ID
+
+* Method: DELETE
+* URL: `/properties/{id}`
+* Description: Delete a property by its ID.
+* Requires Authentication: No
+* Parameters:
+    *id (path parameter): ID of the property.
+* Request:
+    * Body: Delete Property object.
+*Response:
+    * Status: 204 No content
+   
+
+* Error responses:
+   * Status: 404 Not Found
+   * Status: 500 Internal Server Error
