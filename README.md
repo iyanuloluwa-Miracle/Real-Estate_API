@@ -45,3 +45,19 @@ Create a new property
     * Status: 201 Created
 
     * Body: Created Property object.
+
+Get a property by ID
+
+* Method: GET
+* URL: `/properties/{id} `
+* Description: Retrieves a property by its ID.
+* Requires Authentication: No
+* Parameters:
+    *`id` (path parameter): ID of the property.
+ 
+* Response:
+    * Status: 200 OK
+    * Body: Property object. 
+* Error responses:
+    * Status: 404 Not Found
+    * Status: 500 Internal Server Error
