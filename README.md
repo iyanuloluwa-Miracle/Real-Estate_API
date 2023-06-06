@@ -31,3 +31,17 @@ Get all properties
   
     * Body: Array of Property objects.
 
+Create a new property
+
+* Method: POST
+* URL: /properties
+* Description: Creates a new property.
+* Requires Authentication: Yes
+* Request:
+
+    * Body: Property object (title, description, price, location)
+  
+* Response:
+    * Status: 201 Created
+
+    * Body: Created Property object.
