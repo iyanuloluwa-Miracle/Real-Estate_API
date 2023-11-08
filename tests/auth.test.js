@@ -1,4 +1,4 @@
-const propertyController = require('../controllers/propertyController'); // Import your property controller
+const propertyController = require('../src/controllers/propertyController'); // Import your property controller
 const Property = require('../models/Property'); // Import your Property model
 
 jest.mock('../models/Property', () => ({
