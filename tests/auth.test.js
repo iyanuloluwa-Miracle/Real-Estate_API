@@ -1,33 +1,40 @@
-const propertyController = require('../src/controllers/propertyController'); // Import your property controller
-const Property = require('../models/Property'); // Import your Property model
+const Property = require('../src/models/Property'); // Ensure the correct path
 
-jest.mock('../models/Property', () => ({
-  find: jest.fn(),
-  findById: jest.fn(),
-  findByIdAndUpdate: jest.fn(),
-  findByIdAndRemove: jest.fn(),
-}));
+const { getAllProperties } = require('../src/controllers/propertyController'); // Replace 'yourControllerFileName' with the actual filename
 
-describe('Property Controller Tests', () => {
+describe('getAllProperties function', () => {
+  let mockRequest;
+  let mockResponse;
+
   beforeEach(() => {
-    jest.clearAllMocks(); // Clear mock function calls between tests
+    mockRequest = {};
+    mockResponse = {
+      json: jest.fn(),
+      status: jest.fn().mockReturnThis(),
+    };
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   it('should get all properties', async () => {
-    const mockProperties = [{ _id: '1', name: 'Property 1' }, { _id: '2', name: 'Property 2' }];
-    Property.find.mockResolvedValue(mockProperties);
+    // Mock the Property.find method to resolve with a sample array of properties
+    Property.find = jest.fn().mockResolvedValue(['property1', 'property2']);
 
-    const req = {};
-    const res = {
-      json: jest.fn(),
-      status: jest.fn(),
-    };
+    await getAllProperties(mockRequest, mockResponse);
 
-    await propertyController.getAllProperties(req, res);
-
-    expect(Property.find).toHaveBeenCalled();
-    expect(res.json).toHaveBeenCalledWith(mockProperties);
+    expect(mockResponse.json).toHaveBeenCalledWith(['property1', 'property2']);
   });
 
-  // Similarly, write tests for other functions like createProperty, getPropertyById, updateProperty, deleteProperty, and searchProperties
+  it('should handle errors when getting all properties', async () => {
+    // Mock the Property.find method to reject with an error
+    Property.find = jest.fn().mockRejectedValue(new Error('Database error'));
+
+    await getAllProperties(mockRequest, mockResponse);
+
+    expect(mockResponse.status).toHaveBeenCalledWith(500);
+    expect(mockResponse.json).toHaveBeenCalledWith({ error: 'Something went Wrong!' });
+  });
 });
+
